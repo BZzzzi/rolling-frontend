@@ -1,16 +1,20 @@
-import GlobalLayout from "@/components/GlobalLayout";
-import MainPage from "@/pages/main-page";
 import { BrowserRouter, Routes, Route } from "react-router";
+import { GlobalStyle } from "@/styles/global-style";
+import GlobalLayout from "@/components/global-layout";
+import TestPage from "@/pages/test-page";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<GlobalLayout />}>
-          <Route path="/" element={<MainPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<GlobalLayout />}>
+            <Route path="/" element={<TestPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
