@@ -9,10 +9,12 @@ import {
   RollingHeaderUserPeopleState,
   RollingHeaderImojiContainer,
   RollingHeaderArrowDown,
-  PerpendicularLine,
+  PerpendicularLineFirst,
+  PerpendicularLineSecond,
   RollingHeaderImojiIconContainer,
   RollingHeaderImojiText,
   RollingHeaderImojiIcon,
+  RollingHeaderImojiEditButtonContainer,
   RollingHeaderImojiEditButton,
   RollingHeaderImojiEditButtonIcon,
   RollingHeaderImojiEditButtonText,
@@ -23,6 +25,7 @@ import HeadNav from "@/components/head-nav";
 import ArrowDownIcon from "@/assets/icons/arrow-down.svg";
 import AddEmojiIcon from "@/assets/icons/add-emoji.svg";
 import ShareIcon from "@/assets/icons/share.svg";
+
 
 export default function RollingPage() {
   return (
@@ -49,7 +52,7 @@ export default function RollingPage() {
 
           </RollingHeaderUserPeopleContainer>
 
-          <PerpendicularLine />
+          <PerpendicularLineFirst />
           <RollingHeaderImojiContainer>
             {/* //여기에서 함수를 불러와서 처리해야함 */}
             <RollingHeaderImojiIconContainer>
@@ -65,13 +68,18 @@ export default function RollingPage() {
               <RollingHeaderImojiText>12</RollingHeaderImojiText>
             </RollingHeaderImojiIconContainer>
             <RollingHeaderArrowDown src={ArrowDownIcon} />
-            <RollingHeaderImojiEditButton >
-              <RollingHeaderImojiEditButtonIcon src={AddEmojiIcon} />
-              <RollingHeaderImojiEditButtonText>추가</RollingHeaderImojiEditButtonText>
-            </RollingHeaderImojiEditButton>
+            <RollingHeaderImojiEditButtonContainer>
+              <RollingHeaderImojiEditButton >
+                <RollingHeaderImojiEditButtonIcon src={AddEmojiIcon} />
+                <RollingHeaderImojiEditButtonText>추가</RollingHeaderImojiEditButtonText>
+              </RollingHeaderImojiEditButton>
+              <PerpendicularLineSecond />
+
+              <RollingHeaderLinkShareButton src={ShareIcon} />
+            </RollingHeaderImojiEditButtonContainer>
+
+
           </RollingHeaderImojiContainer>
-          <PerpendicularLine />
-          <RollingHeaderLinkShareButton src={ShareIcon} />
 
         </RollingHeaderRightContainer>
       </RollingHeaderContainer >
