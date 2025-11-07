@@ -5,7 +5,6 @@ import media from "@/styles/media";
 
 const Container = styled.div`
   padding: 40px 20px;
-  max-width: 800px;
   margin: 0 auto;
 `;
 
