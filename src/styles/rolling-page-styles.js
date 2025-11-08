@@ -50,8 +50,6 @@ export const RollingHeaderContainer = styled.div`
 `;
 
 
-
-
 //유저 정보 컨테이너 TO. Ashley Kim
 export const RollingHeaderUserInfo = styled.div`
   display: flex;
