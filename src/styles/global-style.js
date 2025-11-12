@@ -25,6 +25,13 @@ export const GlobalStyle = createGlobalStyle`${css`
     -moz-osx-font-smoothing: grayscale;
   }
 
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-family);
+  }
+
   a {
     text-decoration: none;
     color: inherit;
