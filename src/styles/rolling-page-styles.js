@@ -6,9 +6,8 @@ import media from "@/styles/media";
 import EditIcon from "@/assets/icons/plus.svg";
 import DeleteIcon from "@/assets/icons/deleted.svg";
 
-
 //최상단헤더 컨테이너
-export const RollingHeaderContainer = styled.div` 
+export const RollingHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,7 +17,7 @@ export const RollingHeaderContainer = styled.div`
   height: 68px;
   background-color: rgba(255, 255, 255, 1);
   gap: 20px;
-  
+
   ${media.large`
     width: 1200px;
     height: 68px;
@@ -46,9 +45,7 @@ export const RollingHeaderContainer = styled.div`
     gap: 0px;
 
   `}
-
 `;
-
 
 //유저 정보 컨테이너 TO. Ashley Kim
 export const RollingHeaderUserInfo = styled.div`
@@ -61,7 +58,7 @@ export const RollingHeaderUserInfo = styled.div`
   ${font.bold28}
   color: ${colors.gray[800]};
   flex-shrink: 0;
-   
+
   ${media.medium`
     min-width: 150px;
     height: 42px;
@@ -78,7 +75,6 @@ export const RollingHeaderUserInfo = styled.div`
     border-bottom: 1px solid ${colors.gray[200]};
   `}
 `;
-
 
 export const RollingHeaderRightContainer = styled.div`
   display: flex;
@@ -100,19 +96,15 @@ export const RollingHeaderRightContainer = styled.div`
     
 
   `}
-
-
 `;
-
-
 
 //유저 이미지 컨테이너 프로필 사진들과, 몇명이 작성중인지 표시
 export const RollingHeaderUserPeopleContainer = styled.div`
   width: 228px;
   display: flex;
   align-items: center;
- 
-    ${media.medium`
+
+  ${media.medium`
     display: none;
   `}
 
@@ -129,7 +121,7 @@ export const RollingHeaderUserPeopleImages = styled.div`
   position: relative;
 
   cursor: pointer;
-    ${media.medium`
+  ${media.medium`
     
     display: none;
   `}
@@ -138,7 +130,6 @@ export const RollingHeaderUserPeopleImages = styled.div`
    
     display: none;
   `}
-
 `;
 
 export const RollingHeaderUserPeopleImage = styled.img`
@@ -150,7 +141,9 @@ export const RollingHeaderUserPeopleImage = styled.img`
   margin-left: -10px;
 `;
 
-export const RollingHeaderUserDefaultImage = styled(RollingHeaderUserPeopleImage)``;
+export const RollingHeaderUserDefaultImage = styled(
+  RollingHeaderUserPeopleImage
+)``;
 
 //몇명이 작성중인지
 export const RollingHeaderUserPeopleState = styled.div`
@@ -160,7 +153,7 @@ export const RollingHeaderUserPeopleState = styled.div`
   ${font.bold18}
   color: ${colors.gray[900]};
   text-align: center;
-    ${media.medium`
+  ${media.medium`
     
     display: none;
   `}
@@ -175,7 +168,6 @@ export const RollingHeaderImojiContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-
 `;
 
 export const RollingHeaderImojiIconContainer = styled.div`
@@ -187,17 +179,15 @@ export const RollingHeaderImojiIconContainer = styled.div`
   padding: 8px 12px;
   text-align: center;
   border-radius: 32px;
-  background: rgba(153, 153, 153, 1);
+  background: rgba(0, 0, 0, 0.54);
   gap: 2px;
 
   ${media.small`
     padding: 4px 8px;
   `}
-
 `;
 
 export const RollingHeaderImojiIcon = styled.div`
-  
   width: 24px;
   height: 24px;
   color: rgba(255, 255, 255, 1);
@@ -206,7 +196,6 @@ export const RollingHeaderImojiIcon = styled.div`
     width: 20px;
     height: 24px;
   `}
-
 `;
 
 export const RollingHeaderImojiText = styled.span`
@@ -268,7 +257,6 @@ export const RollingHeaderLinkShareButton = styled.div`
       padding: 8px 8px;
 
   `}
-
 `;
 
 export const RollingHeaderArrowDown = styled.img`
@@ -276,12 +264,6 @@ export const RollingHeaderArrowDown = styled.img`
   height: 24px;
   cursor: pointer;
 `;
-
-
-
-
-
-
 
 export const PerpendicularLine = styled.div`
   border-left: 1px solid ${colors.gray[200]};
@@ -300,20 +282,15 @@ export const PerpendicularLineFirst = styled(PerpendicularLine)`
 
 export const PerpendicularLineSecond = styled(PerpendicularLine)``;
 
-
-
 export const RollingPageContainer = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: ${colors.blue[100]};
-width: 100%;
-margin: 0 auto;
-padding: 20px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.blue[100]};
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
 `;
-
-
 
 export const CardContainer = styled.div`
   display: grid;
@@ -394,7 +371,6 @@ export const CardContentStatusProfileContainer = styled.div`
 `;
 
 export const CardContentFrom = styled.div`
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -443,9 +419,11 @@ export const CardContentStatusRelationship = styled.div`
   height: 20px;
   border-radius: 4px;
   ${font.regular14}
-  color: ${props => relationshipTextColors[props.$relationship] || colors.gray[500]};
-  
-  background-color: ${props => relationshipColors[props.$relationship] || colors.gray[500]};
+  color: ${(props) =>
+    relationshipTextColors[props.$relationship] || colors.gray[500]};
+
+  background-color: ${(props) =>
+    relationshipColors[props.$relationship] || colors.gray[500]};
 `;
 
 export const CardContentText = styled.div`
@@ -473,7 +451,7 @@ export const CardContentDeleteButton = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-   &:hover {
+  &:hover {
     background-color: ${colors.gray[200]};
     color: ${colors.gray[100]};
   }
