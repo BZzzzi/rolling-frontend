@@ -30,6 +30,10 @@ const LogoWrapper = styled.div`
   gap: 8px;
 `;
 
+const Title = styled.h3`
+  padding: 20px 0;
+`;
+
 const ButtonWrapper = styled.div`
   margin-left: auto;
 `;
@@ -43,7 +47,7 @@ export default function Header({ showButton }) {
             <Link to="/">
               <LogoWrapper>
                 <img src={logo} alt="로고" />
-                <h3>Rolling</h3>
+                <Title>Rolling</Title>
               </LogoWrapper>
             </Link>
             {showButton && (
