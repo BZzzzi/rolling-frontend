@@ -8,48 +8,55 @@ import {
   CardListLayout,
   SwiperWrapper,
   CardWrapper,
-  CustomH3,
   EmojiWrapper,
   WriterCountText,
   ProfileCount,
+  EmptySection,
+  Title,
+  ReceiverName,
 } from "@/styles/list-page-styles";
 
-export function CardList({ title, userList }) {
+export function CardList({ title, userList, onLoadMore }) {
   return (
     <>
       <CardListLayout>
-        <CustomH3>{title}</CustomH3>
+        <Title>{title}</Title>
         {userList.length === 0 ? (
-          <div>작성된 롤링페이퍼가 없습니다! 직접 만들어 보세요.</div>
+          <EmptySection>
+            아직 작성된 롤링 페이퍼가 없습니다.
+            <br />
+            새로운 롤링 페이퍼를 만들어 보세요!
+          </EmptySection>
         ) : (
           <SwiperWrapper>
             <Swiper
               modules={[Navigation]}
-              spaceBetween={20}
-              slidesPerView={4}
-              slidesPerGroup={4}
-              navigation
-              allowTouchMove={false}
+              onReachEnd={() => {
+                if (onLoadMore) onLoadMore();
+              }}
+              navigation={true}
+              allowTouchMove={true}
+              slidesPerView="auto"
+              slidesPerGroup={1}
+              spaceBetween={12}
+              slidesOffsetBefore={20}
+              slidesOffsetAfter={20}
               breakpoints={{
-                320: {
-                  slidesPerView: 1,
-                  slidesPerGroup: 1,
-                  spaceBetween: 10,
-                },
-                640: {
-                  slidesPerView: 2,
-                  slidesPerGroup: 2,
-                  spaceBetween: 15,
-                },
                 1024: {
                   slidesPerView: 3,
                   slidesPerGroup: 3,
                   spaceBetween: 20,
+                  allowTouchMove: false,
+                  slidesOffsetBefore: 0,
+                  slidesOffsetAfter: 0,
                 },
                 1200: {
                   slidesPerView: 4,
                   slidesPerGroup: 4,
                   spaceBetween: 20,
+                  allowTouchMove: false,
+                  slidesOffsetBefore: 0,
+                  slidesOffsetAfter: 0,
                 },
               }}
             >
@@ -61,7 +68,7 @@ export function CardList({ title, userList }) {
                       bgImg={it.backgroundImageURL}
                     >
                       <div>
-                        <CustomH3>To. {it.name}</CustomH3>
+                        <ReceiverName>To. {it.name}</ReceiverName>
                         <CardImgWrapper>
                           {it.recentMessages.slice(0, 3).map((it) => (
                             <img src={it.profileImageURL} key={it.id} />

@@ -3,6 +3,7 @@ import Button from "@/components/common/button";
 import { RollingHeaderImojiContainer } from "@/styles/rolling-page-styles";
 import { font } from "@/styles/font";
 import { colors } from "@/styles/colors";
+import media from "@/styles/media";
 
 // list-page
 export const PageContainer = styled.div`
@@ -21,9 +22,41 @@ export const CustomButton = styled(Button)`
   padding: 14px 60px;
 `;
 
+// card-list 비었을 때
+export const EmptySection = styled.div`
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+  ${font.regular20};
+  margin-top: 12px;
+  padding: 80px;
+  ${media.small`
+    padding: 80px 30px;
+    ${font.regular14}
+  `}
+`;
+
 // card-list
-export const CustomH3 = styled.div`
-  ${font.bold24}
+export const Title = styled.h3`
+  ${font.bold24};
+
+  ${media.medium`
+    padding-left: 20px;
+  `}
+
+  ${media.small`
+    padding-left: 20px;
+  `}
+`;
+
+export const ReceiverName = styled.h3`
+  ${font.bold24};
+  ${media.small`
+    ${font.bold18};
+  `}
 `;
 
 export const CardListLayout = styled.div`
@@ -33,6 +66,14 @@ export const CardListLayout = styled.div`
   align-items: start;
   margin-top: 50px;
   padding: 0 20px;
+
+  ${media.small`
+    padding: 0;
+  `}
+
+  ${media.medium`
+    padding: 0;
+  `}
 `;
 
 export const SwiperWrapper = styled.div`
@@ -50,6 +91,18 @@ export const SwiperWrapper = styled.div`
     overflow: hidden;
   }
 
+  .swiper-slide {
+    ${media.medium`
+      width: 30%;
+      min-width: 275px;
+  `}
+
+    ${media.small`
+      width: 50%;
+      min-width: 208px;
+  `}
+  }
+
   .swiper-button-next,
   .swiper-button-prev {
     width: 40px;
@@ -59,6 +112,14 @@ export const SwiperWrapper = styled.div`
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     color: #000000;
+
+    ${media.medium`
+      display: none;
+  `}
+
+    ${media.small`
+      display: none;
+  `}
   }
 
   .swiper-button-next {
@@ -76,7 +137,7 @@ export const SwiperWrapper = styled.div`
 `;
 
 export const CardWrapper = styled.div`
-  width: 275px;
+  width: 100%;
   height: 260px;
   display: flex;
   flex-direction: column;
@@ -137,5 +198,6 @@ export const WriterCountText = styled.div`
 
 export const EmojiWrapper = styled(RollingHeaderImojiContainer)`
   border-top: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 17px 28px 0 0;
+  padding-top: 17px;
+  font-size: 14px;
 `;
