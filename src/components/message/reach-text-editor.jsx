@@ -1,12 +1,20 @@
-import React, { useMemo } from "react";
+import React from "react";
 import ReactQuill from "react-quill-new";
-
 import "react-quill-new/dist/quill.snow.css";
 
 import styled from "styled-components";
-
 import { font } from "@/styles/font";
 import { colors } from "@/styles/colors";
+import Quill from "quill";
+
+const toolbar = Quill.import("modules/toolbar");
+const list = Quill.import("formats/list");
+
+if (list) {
+  Quill.register(list, true);
+}
+if (toolbar) {
+}
 
 const EditorContainer = styled.div`
   min-height: 243px;
@@ -46,36 +54,30 @@ const EditorContainer = styled.div`
 `;
 
 function RichTextEditor({ value, onChange }) {
-  const modules = useMemo(
-    () => ({
-      toolbar: [
-        ["bold", "italic", "underline"],
-        [
-          { align: "" },
-          { align: "center" },
-          { align: "right" },
-          { align: "justify" },
-        ],
-        [{ list: "ordered" }, { list: "bullet" }],
-        ["link", "image"],
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline"],
+      [
+        { align: "" },
+        { align: "center" },
+        { align: "right" },
+        { align: "justify" },
       ],
-    }),
-    []
-  );
-
-  const formats = useMemo(
-    () => [
-      "bold",
-      "italic",
-      "underline",
-      "align",
-      "list",
-      "bullet",
-      "link",
-      "image",
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image"],
     ],
-    []
-  );
+  };
+
+  const formats = [
+    "bold",
+    "italic",
+    "underline",
+    "align",
+    "list",
+    "bullet",
+    "link",
+    "image",
+  ];
 
   return (
     <EditorContainer>
