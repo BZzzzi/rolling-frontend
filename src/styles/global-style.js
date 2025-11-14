@@ -9,6 +9,10 @@ export const GlobalStyle = createGlobalStyle`${css`
 
   html,
   body,
+  p,
+  h1,
+  h2,
+  h3,
   #root {
     margin: 0;
     padding: 0;
@@ -23,6 +27,13 @@ export const GlobalStyle = createGlobalStyle`${css`
     font-family: var(--font-family);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-family);
   }
 
   a {
