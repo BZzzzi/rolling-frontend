@@ -1,9 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { colors } from "@/styles/colors";
 import { font } from "@/styles/font";
 import Button from "@/components/common/button";
 import DropDown from "@/components/message/drop-down";
+import FromInput from "@/components/message/from-input";
 import useDropdown from "@/hooks/use-dropdown";
+import useFormInput from "@/hooks/use-from-input";
 
 const RELATIONSHIP_OPTIONS = [
   { label: "지인", value: "지인" },
@@ -26,14 +29,14 @@ const selectableImages = [
   { id: 7, url: TEMP_IMAGE_URL, isSelected: false },
 ];
 
-const FormInputStyle = css`
+export const FormInputStyle = css`
   width: 100%;
   padding: 12px 16px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 16px;
+  ${font.regular16};
   outline: none;
-  color: #181818;
+  ${colors.gray[900]};
   background-color: #fff;
 
   &:focus {
@@ -63,7 +66,7 @@ export const FormLabel = styled.label`
   ${font.bold24}
   line-height: 36px;
   letter-spacing: -0.01em;
-  color: #181818;
+  ${colors.gray[900]};
 `;
 
 export const InputField = styled.input`
@@ -155,8 +158,7 @@ const FullWidthButton = styled(Button)`
 
 function MessagePage() {
   const isFormValid = false;
-  const hasError = true;
-
+  const fromInput = useFormInput("");
   const relationshipDropdown = useDropdown("지인");
   const fontDropdown = useDropdown("Noto Sans");
 
@@ -166,13 +168,16 @@ function MessagePage() {
         {/* From. 입력 필드 */}
         <FormField>
           <FormLabel htmlFor="fromInput">From.</FormLabel>
-          <InputField
+          <FromInput
             id="fromInput"
             name="from"
             placeholder="이름을 입력해 주세요."
+            value={fromInput.value}
+            onChange={fromInput.handleChange}
+            onBlur={fromInput.handleBlur}
+            hasError={fromInput.hasError}
+            errorMessage="값을 입력해 주세요."
           />
-          {/* 에러 메시지 표시 */}
-          {hasError && <ErrorMessage>"값을 입력해 주세요."</ErrorMessage>}
         </FormField>
 
         {/* 프로필 이미지 선택창 (생략) */}

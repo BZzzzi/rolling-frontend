@@ -12,7 +12,6 @@ const DropDownWrapper = styled.div`
 
 const DropDownTrigger = styled.button`
   width: 100%;
-  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,8 +26,8 @@ const DropDownTrigger = styled.button`
 
   outline: none;
 
-  color: ${({ currentValue, defaultValue, $isInitialLoad }) => {
-    if ($isInitialLoad && currentValue === defaultValue) {
+  color: ${({ $currentValue, defaultValue, $isInitialLoad }) => {
+    if ($isInitialLoad && $currentValue === defaultValue) {
       return colors.gray[500];
     }
     return colors.gray[900];
@@ -128,7 +127,7 @@ function DropDown({ id, name, defaultValue, value, onChange, options }) {
         type="button"
         onClick={handleTriggerClick}
         $isOpen={isOpen}
-        currentValue={currentValue}
+        $currentValue={currentValue}
         defaultValue={defaultValue}
         $isInitialLoad={isInitialLoad}
         aria-haspopup="listbox"
