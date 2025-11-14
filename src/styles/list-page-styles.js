@@ -5,6 +5,10 @@ import { RollingHeaderImojiContainer } from "@/styles/rolling-page-styles";
 import { font } from "@/styles/font";
 import { colors } from "@/styles/colors";
 import media from "@/styles/media";
+import bgPatternBeige from "@/assets/images/bg-pattern-beige.svg";
+import bgPatternPurple from "@/assets/images/bg-pattern-purple.svg";
+import bgPatternBlue from "@/assets/images/bg-pattern-blue.svg";
+import bgPatternGreen from "@/assets/images/bg-pattern-green.svg";
 
 // list-page
 export const PageContainer = styled.div`
@@ -184,31 +188,60 @@ export const CardWrapper = styled.div`
   // 배경 color일 때 적용(이미지 같이 내려올 시, 이미지 우선)
   background-color: ${(props) => {
     if (props.$bgImg) return "transparent";
-    if (props.$bg) {
-      if (props.$bg === "beige") return `${colors.beige[200]}`;
-      if (props.$bg === "purple") return `${colors.purple[200]}`;
-      if (props.$bg === "blue") return `${colors.blue[200]}`;
-      if (props.$bg === "green") return `${colors.green[200]}`;
-    }
-    return "#ffffff";
+    const colorMap = {
+      beige: colors.beige[200],
+      purple: colors.purple[200],
+      blue: colors.blue[200],
+      green: colors.green[200],
+    };
+    return colorMap[props.$bg] || "#ffffff";
   }};
 
   // 배경 이미지, null이면 color 적용
   background-image: ${(props) => {
     if (props.$bgImg) {
-      return `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${props.$bgImg})`;
+      return `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url("${props.$bgImg}")`;
+    }
+    const patternMap = {
+      beige: bgPatternBeige,
+      purple: bgPatternPurple,
+      blue: bgPatternBlue,
+      green: bgPatternGreen,
+    };
+    if (props.$bg && patternMap[props.$bg]) {
+      return `url("${patternMap[props.$bg]}")`;
     }
     return "none";
   }};
 
+  background-size: ${(props) => {
+    if (props.$bgImg) return "cover";
+    if (props.$bg === "beige") return "130px";
+    if (props.$bg) return "150px";
+    return "cover";
+  }};
+
+  background-position: ${(props) => {
+    if (props.$bgImg) return "center";
+    if (props.$bg) return "bottom right";
+    return "center";
+  }};
+
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
   padding: 30px 24px 20px;
   cursor: pointer;
+
+  ${media.small`
+    background-size: ${(props) => {
+      if (props.$bgImg) return "cover";
+      if (props.$bg === "beige") return "110px";
+      if (props.$bg) return "130px";
+      return "cover";
+    }};
+  `}
 `;
 
 export const CardImgWrapper = styled.div`
