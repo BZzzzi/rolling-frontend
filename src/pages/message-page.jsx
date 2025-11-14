@@ -5,17 +5,8 @@ import { font } from "@/styles/font";
 import Button from "@/components/common/button";
 import DropDown from "@/components/message/drop-down";
 import FromInput from "@/components/message/from-input";
-import useDropdown from "@/hooks/use-dropdown";
-import useFormInput from "@/hooks/use-from-input";
-
-const RELATIONSHIP_OPTIONS = [
-  { label: "지인", value: "지인" },
-  { label: "친구", value: "친구" },
-  { label: "동료", value: "동료" },
-  { label: "가족", value: "가족" },
-];
-
-const FONT_OPTIONS = [{ label: "Noto Sans", value: "Noto Sans" }];
+import { useMessageForm } from "@/hooks/use-message-form";
+import RichTextEditor from "@/components/message/reach-text-editor";
 
 const DEFAULT_ICON_URL = "/assets/default-user.svg";
 const TEMP_IMAGE_URL = "/assets/temp-profile.jpg";
@@ -33,27 +24,27 @@ export const FormInputStyle = css`
   width: 100%;
   padding: 12px 16px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid ${colors.gray[300]};
   ${font.regular16};
   outline: none;
   ${colors.gray[900]};
   background-color: #fff;
 
   &:focus {
-    border-color: #555;
+    border-color: ${colors.gray[500]};
   }
 `;
 
 export const PageContainer = styled.div`
   max-width: 720px;
   margin: 0 auto;
-  padding: 60px 24px;
+  padding: 47px 24px 60px 24px;
 `;
 
 export const MessageFormBox = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 50px;
 `;
 
 export const FormField = styled.div`
@@ -67,18 +58,20 @@ export const FormLabel = styled.label`
   line-height: 36px;
   letter-spacing: -0.01em;
   ${colors.gray[900]};
+  margin: 0;
+  padding: 0;
 `;
 
 export const InputField = styled.input`
   ${FormInputStyle}
 
   &:focus {
-    border-color: #555;
+    border-color: ${colors.gray[500]};
   }
 `;
 
 export const ErrorMessage = styled.p`
-  color: #dc3545;
+  color: ${colors.error};
   font-size: 14px;
   margin-top: -8px;
 `;
@@ -101,7 +94,7 @@ export const ProfileDefaultBox = styled.div`
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  border: 1px solid #ccc;
+  border: 1px solid ${colors.gray[300]};
 
   img {
     width: 100%;
@@ -141,30 +134,27 @@ export const SelectableImageItem = styled.li`
   }
 `;
 
-export const EditorPlaceholder = styled.div`
-  min-height: 200px;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  font-size: 16px;
-  color: #777;
-`;
-
 const FullWidthButton = styled(Button)`
   width: 100%;
   margin-top: 20px;
 `;
 
 function MessagePage() {
-  const isFormValid = false;
-  const fromInput = useFormInput("");
-  const relationshipDropdown = useDropdown("지인");
-  const fontDropdown = useDropdown("Noto Sans");
+  const {
+    fromInput,
+    relationshipDropdown,
+    fontDropdown,
+    editorContent,
+    setEditorContent,
+    isFormValid,
+    handleSubmit,
+    RELATIONSHIP_OPTIONS,
+    FONT_OPTIONS,
+  } = useMessageForm();
 
   return (
     <PageContainer>
-      <MessageFormBox>
+      <MessageFormBox onSubmit={handleSubmit}>
         {/* From. 입력 필드 */}
         <FormField>
           <FormLabel htmlFor="fromInput">From.</FormLabel>
@@ -180,7 +170,7 @@ function MessagePage() {
           />
         </FormField>
 
-        {/* 프로필 이미지 선택창 (생략) */}
+        {/* 프로필 이미지 선택창 */}
         <ProfileWrapper>
           <FormLabel as="p">프로필 이미지</FormLabel>
           <ProfileSelectorContainer>
@@ -210,12 +200,9 @@ function MessagePage() {
           />
         </FormField>
 
-        {/* 내용 입력 (Rich Text Editor 사용) */}
         <FormField>
           <FormLabel as="p">내용을 입력해 주세요</FormLabel>
-          <EditorPlaceholder>
-            <p>I am your reach text editor.</p>
-          </EditorPlaceholder>
+          <RichTextEditor value={editorContent} onChange={setEditorContent} />
         </FormField>
 
         {/* 폰트 선택 드롭다운 */}
