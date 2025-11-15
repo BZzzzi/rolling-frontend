@@ -1,44 +1,103 @@
-import { useState } from "react";
-import useDropdown from "@/hooks/use-dropdown";
-import useFormInput from "@/hooks/use-from-input";
+import { useState, useMemo } from "react";
+import { useProfileImage } from "./use-profile-image";
 
-const RELATIONSHIP_OPTIONS = [
-  { label: "지인", value: "지인" },
-  { label: "친구", value: "친구" },
-  { label: "동료", value: "동료" },
-  { label: "가족", value: "가족" },
+export const RELATIONSHIP_OPTIONS = [
+  { value: "지인", label: "지인" },
+  { value: "친구", label: "친구" },
+  { value: "가족", label: "가족" },
+  { value: "동료", label: "동료" },
 ];
-const FONT_OPTIONS = [{ label: "Noto Sans", value: "Noto Sans" }];
 
-export function useMessageForm() {
-  const fromInput = useFormInput("");
-  const relationshipDropdown = useDropdown(RELATIONSHIP_OPTIONS[0].value);
-  const fontDropdown = useDropdown(FONT_OPTIONS[0].value);
+export const FONT_OPTIONS = [{ value: "Noto Sans", label: "Noto Sans" }];
+
+const useInput = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
+  const [hasError, setHasError] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    if (isTouched && e.target.value.trim() !== "") {
+      setHasError(false);
+    }
+  };
+
+  const handleBlur = () => {
+    setIsTouched(true);
+    if (value.trim() === "") {
+      setHasError(true);
+    } else {
+      setHasError(false);
+    }
+  };
+
+  return {
+    value,
+    hasError,
+    handleChange,
+    handleBlur,
+    isTouched,
+    isValid: value.trim() !== "",
+    reset: () => {
+      setValue(initialValue);
+      setHasError(false);
+      setIsTouched(false);
+    },
+  };
+};
+
+export const useMessageForm = () => {
+  const fromInput = useInput("");
+
+  const [relationship, setRelationship] = useState(
+    RELATIONSHIP_OPTIONS[0].value
+  );
+  const relationshipDropdown = {
+    value: relationship,
+    handleChange: (e) => setRelationship(e.target.value),
+  };
+
+  const [font, setFont] = useState(FONT_OPTIONS[0].value);
+  const fontDropdown = {
+    value: font,
+    handleChange: (e) => setFont(e.target.value),
+  };
+
   const [editorContent, setEditorContent] = useState("");
 
-  const isContentValid =
-    editorContent.trim().length > 0 && editorContent !== "<p><br></p>";
-  const isFormValid = fromInput.value.trim().length > 0 && isContentValid;
+  const {
+    selectedProfileImageId,
+    handleImageSelect,
+    selectableImages,
+    isLoading,
+    error,
+  } = useProfileImage();
+
+  const isFormValid = useMemo(() => {
+    const isFromValid = fromInput.isValid;
+    const isContentValid = editorContent.trim().length > 0;
+
+    return isFromValid && isContentValid;
+  }, [fromInput.isValid, editorContent]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!isFormValid) {
-      alert("모든 필수 항목을 입력해 주세요.");
-      return;
+    fromInput.handleBlur();
+
+    if (isFormValid) {
+      const formData = {
+        from: fromInput.value,
+        relationship: relationship,
+        font: font,
+        content: editorContent,
+        profileImageId: selectedProfileImageId,
+      };
+
+      console.log("Form Submitted:", formData);
+    } else {
+      console.log("Form validation failed.");
     }
-
-    const formData = {
-      from: fromInput.value,
-      relationship: relationshipDropdown.value,
-      content: editorContent,
-      font: fontDropdown.value,
-    };
-
-    console.log("✅ 폼 데이터 제출 성공:", formData);
-    alert(` 메시지가 성공적으로 생성되었습니다.`);
-
-    // TODO: 서버 API 호출 로직 구현
   };
 
   return {
@@ -47,9 +106,14 @@ export function useMessageForm() {
     fontDropdown,
     editorContent,
     setEditorContent,
+    selectedProfileImageId,
+    handleImageSelect,
+    selectableImages,
+    isLoading,
+    error,
     isFormValid,
     handleSubmit,
     RELATIONSHIP_OPTIONS,
     FONT_OPTIONS,
   };
-}
+};

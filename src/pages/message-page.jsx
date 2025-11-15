@@ -8,17 +8,7 @@ import FromInput from "@/components/message/from-input";
 import { useMessageForm } from "@/hooks/use-message-form";
 import RichTextEditor from "@/components/message/reach-text-editor";
 
-const DEFAULT_ICON_URL = "/assets/default-user.svg";
-const TEMP_IMAGE_URL = "/assets/temp-profile.jpg";
-const selectableImages = [
-  { id: 1, url: TEMP_IMAGE_URL, isSelected: true },
-  { id: 2, url: TEMP_IMAGE_URL, isSelected: false },
-  { id: 3, url: TEMP_IMAGE_URL, isSelected: false },
-  { id: 4, url: TEMP_IMAGE_URL, isSelected: false },
-  { id: 5, url: TEMP_IMAGE_URL, isSelected: false },
-  { id: 6, url: TEMP_IMAGE_URL, isSelected: false },
-  { id: 7, url: TEMP_IMAGE_URL, isSelected: false },
-];
+import ProfileImageSelector from "@/components/message/profile-image-selector";
 
 export const FormInputStyle = css`
   width: 100%;
@@ -76,64 +66,6 @@ export const ErrorMessage = styled.p`
   margin-top: -8px;
 `;
 
-export const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-export const ProfileSelectorContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 32px;
-`;
-
-export const ProfileDefaultBox = styled.div`
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  border: 1px solid ${colors.gray[300]};
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-export const SelectableImagesList = styled.ul`
-  display: flex;
-  gap: 4px;
-  overflow-x: auto;
-  padding: 4px 0;
-  -webkit-overflow-scrolling: touch;
-  list-style: none;
-  margin: 0;
-`;
-
-export const SelectableImageItem = styled.li`
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  overflow: hidden;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: transform 0.2s, border 0.2s;
-
-  border: 2px solid transparent;
-  &:hover {
-    opacity: 0.8;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
 const FullWidthButton = styled(Button)`
   width: 100%;
   margin-top: 20px;
@@ -150,6 +82,11 @@ function MessagePage() {
     handleSubmit,
     RELATIONSHIP_OPTIONS,
     FONT_OPTIONS,
+    selectedProfileImageId,
+    handleImageSelect,
+    selectableImages,
+    isLoading,
+    error,
   } = useMessageForm();
 
   return (
@@ -170,22 +107,14 @@ function MessagePage() {
           />
         </FormField>
 
-        {/* 프로필 이미지 선택창 */}
-        <ProfileWrapper>
-          <FormLabel as="p">프로필 이미지</FormLabel>
-          <ProfileSelectorContainer>
-            <ProfileDefaultBox>
-              <img src={DEFAULT_ICON_URL} alt="기본 프로필 이미지" />
-            </ProfileDefaultBox>
-            <SelectableImagesList>
-              {selectableImages.map((image) => (
-                <SelectableImageItem key={image.id}>
-                  <img src={image.url} alt={`프로필 ${image.id}`} />
-                </SelectableImageItem>
-              ))}
-            </SelectableImagesList>
-          </ProfileSelectorContainer>
-        </ProfileWrapper>
+        {/* 프로필 이미지 선택 */}
+        <ProfileImageSelector
+          selectedId={selectedProfileImageId}
+          onImageSelect={handleImageSelect}
+          selectableImages={selectableImages}
+          isLoading={isLoading}
+          error={error}
+        />
 
         {/* 상대와의 관계 드롭다운*/}
         <FormField>
