@@ -5,9 +5,7 @@ import img2 from "@/assets/images/profile-img-02.webp";
 
 export const DEFAULT_IMAGE_ID = 0;
 
-/**
- * 프로필 이미지 선택 상태와 로직 및 API 통신을 관리하는 커스텀 훅
- */
+/* 프로필 이미지 선택 상태와 로직 및 API 통신을 관리하는 커스텀 훅 */
 export const useProfileImage = () => {
   const [selectedProfileImageId, setSelectedProfileImageId] =
     useState(DEFAULT_IMAGE_ID);
