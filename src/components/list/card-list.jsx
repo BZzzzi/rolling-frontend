@@ -22,7 +22,7 @@ export function CardList({ title, userList, onLoadMore, nextCheck }) {
   const navigate = useNavigate();
 
   const handleCardClick = (id) => {
-    navigate(`/rolling/${id}`);
+    navigate(`/post/${id}`);
   };
 
   const handleLoadMore = async () => {
