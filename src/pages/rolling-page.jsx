@@ -9,7 +9,7 @@ import {
   CardPageDeleteButton,
   CardContainerWrapper,
 } from "@/styles/rolling-page-styles";
-import RollingPageHeader from "@/components/rolling/rolling-page-head";
+import RollingPageHeader from "@/components/rolling/rolling-page-header";
 import ParticipantSection from "@/components/rolling/participant-section";
 import CardContents from "@/components/rolling/card-contents";
 import DeleteConfirmModal from "@/components/rolling/delete-confirm-modal";
