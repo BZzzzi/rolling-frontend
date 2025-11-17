@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router";
 
 // API 호스트 루트
 const BASE_URL = "https://rolling-api.vercel.app";
@@ -36,7 +37,7 @@ const useInput = (initialValue, validate) => {
 
 export const useMessageForm = () => {
   // 상태 정의
-
+  const { id } = useParams();
   const fromInput = useInput("", (val) => val.trim().length > 0);
   const relationshipDropdown = useInput(
     RELATIONSHIP_OPTIONS[0].value,
@@ -114,6 +115,7 @@ export const useMessageForm = () => {
   }, []);
 
   // [POST 요청] 폼 데이터 전송 (Axios 사용)
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -147,7 +149,7 @@ export const useMessageForm = () => {
     };
 
     // 롤링페이퍼 ID가 필요하다면 이 훅을 사용하는 컴포넌트에서 recipientId를 주입해야 합니다.
-    const POST_API_URL = `${BASE_URL}/messages/`;
+    const POST_API_URL = `${BASE_URL}/20-1/recipients/${id}/messages/`;
 
     try {
       console.log(`[API CALL] POST 요청 시작: ${POST_API_URL}`);
@@ -156,6 +158,8 @@ export const useMessageForm = () => {
       const response = await axios.post(POST_API_URL, formData);
 
       console.log("롤링페이퍼 생성 성공. 서버 응답:", response.data);
+
+      navigate(`/post/${id}`);
       return true;
     } catch (error) {
       console.error("롤링페이퍼 생성 중 API 오류 발생:", error);

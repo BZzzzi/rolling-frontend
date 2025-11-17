@@ -7,7 +7,6 @@ import DropDown from "@/components/message/drop-down";
 import FromInput from "@/components/message/from-input";
 import { useMessageForm } from "@/hooks/use-message-form";
 import RichTextEditor from "@/components/message/reach-text-editor";
-
 import ProfileImageSelector from "@/components/message/profile-image-selector";
 
 export const FormInputStyle = css`
