@@ -7,13 +7,10 @@ import { font } from "@/styles/font";
 import { colors } from "@/styles/colors";
 import Quill from "quill";
 
-const toolbar = Quill.import("modules/toolbar");
 const list = Quill.import("formats/list");
 
 if (list) {
   Quill.register(list, true);
-}
-if (toolbar) {
 }
 
 const EditorContainer = styled.div`

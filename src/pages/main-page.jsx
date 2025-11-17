@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { colors } from "@/styles/colors";
 import { font } from "@/styles/font";
 import media from "@/styles/media";
+import Button from "@/components/common/button";
+import { Link } from "react-router";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -147,28 +149,17 @@ const MainTitleSmall = styled.p`
   `}
 `;
 
-const Button = styled.button`
-  width: 280px;
+const CustomButton = styled(Button)`
+  width: 286px;
   height: 56px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  border-radius: 12px;
-  background-color: ${colors.purple[600]};
-  color: #ffffff;
-  ${font.bold18};
-  margin-top: 28px;
-  border: none;
-  cursor: pointer;
 
   ${media.small`
     width: calc(100% - 40px);
-  `}
+   `}
 
   ${media.medium`
-    width: calc(100% - 48px);
-  `}
+     width: calc(100% - 48px);
+   `}
 `;
 
 export default function MainPage() {
@@ -176,19 +167,19 @@ export default function MainPage() {
     <Container>
       <MainFlexBox>
         <PointLabel>Point. 01</PointLabel>
-        <MainTitle>
-          누구나 손쉽게, 온라인 롤링 페이퍼를 만들 수 있어요
-        </MainTitle>
+        <MainTitle>누구나 손쉽게, 온라인 롤링 페이퍼를 만들 수 있어요</MainTitle>
         <MainTitleSmall>로그인 없이 자유롭게 만들어요.</MainTitleSmall>
       </MainFlexBox>
       <MainFlexBoxRightPosition>
         <PointLabel>Point. 02</PointLabel>
         <MainTitle>서로에게 이모지로 감정을 표현해보세요</MainTitle>
-        <MainTitleSmall>
-          롤링 페이퍼에 이모지를 추가할 수 있어요.
-        </MainTitleSmall>
+        <MainTitleSmall>롤링 페이퍼에 이모지를 추가할 수 있어요.</MainTitleSmall>
       </MainFlexBoxRightPosition>
-      <Button>구경해보기</Button>
+      <Link to="/post">
+        <CustomButton variant="primary" size="large">
+          구경해보기
+        </CustomButton>
+      </Link>
     </Container>
   );
 }

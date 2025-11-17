@@ -1,7 +1,8 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import styled from "styled-components";
 import logo from "@/assets/icons/logo.svg";
 import Button from "@/components/common/button";
+import media from "@/styles/media";
 
 const ContainWrapper = styled.div`
   position: sticky;
@@ -9,6 +10,12 @@ const ContainWrapper = styled.div`
   background-color: white;
   border-bottom: 1px solid #ededed;
   z-index: 1003;
+
+  ${(props) =>
+    props.$isRollingPage &&
+    media.small`
+    display: none;
+  `}
 `;
 
 const Contain = styled.div`
@@ -30,25 +37,32 @@ const LogoWrapper = styled.div`
   gap: 8px;
 `;
 
+const Title = styled.h3`
+  padding: 20px 0;
+`;
+
 const ButtonWrapper = styled.div`
   margin-left: auto;
 `;
 
 export default function Header({ showButton }) {
+  const location = useLocation();
+  const isRollingPage = location.pathname.startsWith("/post/");
+
   return (
     <>
-      <ContainWrapper>
+      <ContainWrapper $isRollingPage={isRollingPage}>
         <Contain>
           <HeaderWrapper>
             <Link to="/">
               <LogoWrapper>
                 <img src={logo} alt="로고" />
-                <h3>Rolling</h3>
+                <Title>Rolling</Title>
               </LogoWrapper>
             </Link>
             {showButton && (
               <ButtonWrapper>
-                <Link to="/rolling">
+                <Link to="/post">
                   <Button variant="outlined" size="medium">
                     롤링 페이퍼 만들기
                   </Button>
