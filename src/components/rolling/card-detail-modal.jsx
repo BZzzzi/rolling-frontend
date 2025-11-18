@@ -11,14 +11,13 @@ const ContentContainer = styled.div`
   gap: 24px;
   height: 100%;
   padding-right: 16px;
-overflow-y: auto;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
   height: 100%;
   padding-right: 16px;
-    max-height: 70vh;
-  
+  max-height: 70vh;
 `;
 
 const ProfileSection = styled.div`
@@ -34,7 +33,6 @@ const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
-  
 `;
 const ProfileImage = styled.img`
   width: 56px;
@@ -137,18 +135,23 @@ export default function CardDetailModal({ isOpen, onClose, message }) {
             </ProfileInfo>
           </ProfileContainer>
           <MessageDate>{formatDate(message.createdAt)}</MessageDate>
-
         </ProfileSection>
-        <MessageContent>{message.content}</MessageContent>
+        <MessageContent
+          className="ql-editor"
+          dangerouslySetInnerHTML={{ __html: message.content }}
+        />
       </ContentContainer>
 
-
       <ButtonWrapper>
-        <Button variant="primary" size="medium" onClick={onClose} style={{ width: "120px", height: "40px" }}>
+        <Button
+          variant="primary"
+          size="medium"
+          onClick={onClose}
+          style={{ width: "120px", height: "40px" }}
+        >
           확인
         </Button>
       </ButtonWrapper>
     </ModalLayout>
   );
 }
-
