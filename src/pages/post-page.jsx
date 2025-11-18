@@ -8,8 +8,6 @@ import media from "@/styles/media";
 import Button from "@/components/common/button";
 import Toggle from "@/components/common/toggle";
 
-
-
 const Container = styled.div`
   min-width: 380px;
   max-width: 720px;
@@ -73,7 +71,6 @@ export default function PostPage() {
     colors.green[200],
   ];
 
-
   const [isSelectDiv, setIsSelectDiv] = useState(bgColors[0]);
   const [isSelectImg, setIsSelectImg] = useState(null);
 
@@ -113,12 +110,9 @@ export default function PostPage() {
         backgroundImageURL: isSelectImg,
       })
       .then((response) => {
-        console.log(response.data);
-        navigate(`/post/${response.data.id}`);
-        alert("전송을 성공하였습니다.");
-
         const getId = response.data.id;
         navigate(`/post/${getId}`);
+        alert("전송을 성공하였습니다.");
       })
       .catch((error) => {
         console.error("전송에 실패하였습니다.", error);
